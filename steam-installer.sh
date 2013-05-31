@@ -69,13 +69,15 @@ if [ "$(id -u)" = "0" ]; then
 	rm -f /etc/apt/sources.list.d/steam.list*
 	echo "##  Remove Steam Dependancy Checker"
 	rm -f /usr/bin/steamdeps
-    read -p "Would you like to install the package now.  (Y): " -n 1 _ANSWER
-    if ! [ "$_ANSWER" == "Y" ]; then
-        echo -e "\n\n##  Install Steam Package to Home Directory"
-        dpkg -i ~/steam.deb
-    fi
-    echo "##  Remove ${TEMPSTEAMDIR}"
-    rm -rf $TEMPSTEAMDIR
+    
+        read -p "Would you like to install the package now.  (Y): " -n 1 _ANSWER
+        if ! [ "$_ANSWER" == "Y" ]; then
+            echo -e "\n\n##  Install Steam Package to Home Directory"
+            dpkg -i ~/steam.deb
+        fi
+
+        echo "##  Remove ${TEMPSTEAMDIR}"
+        rm -rf $TEMPSTEAMDIR
 	echo "##  Complete: Package available at ~/steam.deb"
 else
 	echo "##  Creating Lib Directories"
@@ -94,5 +96,5 @@ else
 	wget -qO- https://get.adobe.com/de/flashplayer/completion/?installer=Flash_Player_11.2_for_other_Linux_%28.tar.gz%29_32-bit|awk -F\' '/location.href/{print $2}'|sed s/http:/https:/|wget -i- -qO-|tar zxvC ~/.local/share/Steam/ubuntu12_32/plugins libflashplayer.so
 	echo "##  Remove ${TEMPSTEAMDIR}"
 	rm -rf $TEMPSTEAMDIR
-	echo "##  Complete: Package available at ~/steam.deb"
+	echo "##  Complete: Steam should run properly now."
 fi
